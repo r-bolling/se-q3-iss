@@ -17,9 +17,13 @@ def get_astronauts():
         )
     return r
 
+def get_space_coords():
+    r = requests.get('http://api.open-notify.org/iss-now.json')
+    return r.json()
 
 def main():
     get_astronauts()
+    coords = get_space_coords()
     pass
 
 
