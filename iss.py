@@ -3,6 +3,7 @@
 __author__ = 'r-bolling with help from Kenzie Academy Lessons'
 
 import requests
+from turtle import Screen, Turtle
 
 def get_astronauts():
     r = requests.get('http://api.open-notify.org/astros.json')
@@ -21,9 +22,24 @@ def get_space_coords():
     r = requests.get('http://api.open-notify.org/iss-now.json')
     return r.json()
 
+def world_map(coords):
+    iss_location = coords['iss_position']
+    screen = Screen()
+    screen.setworldcoordinates(-360, -180, 360, 180)
+    screen.addshape('iss.gif')
+    screen.setup(720, 360)
+    screen.bgpic('map.gif')
+    iss = Turtle()
+    iss.shape('iss.gif')
+    iss.penup()
+    iss.goto(float(iss_location['longitude']), float(iss_location['latitude']))
+    screen.exitonclick()
+    pass
+
 def main():
     get_astronauts()
     coords = get_space_coords()
+    world_map(coords)
     pass
 
 
